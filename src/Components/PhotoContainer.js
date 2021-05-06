@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Photo from './Photo';
-import NotFound from './NotFound';
+// import NotFound from './NotFound';
 
 class PhotoContainer extends Component {
 
@@ -25,7 +25,7 @@ class PhotoContainer extends Component {
                 <Photo />
     
                 {/* IF NO PHOTOS, RETURN THE NOTFOUND COMPONENT */}
-                <NotFound />
+                {/* <NotFound /> */}
                 </ul>            
             </div>
         );

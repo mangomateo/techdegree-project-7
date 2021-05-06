@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
+// App component imports
 import SearchForm from './SearchForm';
 import Navigation from './Navigation';
 import PhotoContainer from './PhotoContainer';
-import apiKey from '../config';
+import NotFound from './NotFound';
+// import apiKey from '../config';
 
 class App extends Component {
 
@@ -13,11 +16,14 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <SearchForm />
-        <Navigation />
-        <PhotoContainer />
-      </div>
+      <BrowserRouter>
+        <div className="container">
+          <SearchForm />
+          <Navigation />
+          <Route exact path="/" component={ PhotoContainer } />
+          <Route path="/error" component={ NotFound } />
+        </div>
+      </BrowserRouter>
     );
   }
 }
