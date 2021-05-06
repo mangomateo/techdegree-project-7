@@ -4,9 +4,9 @@ const Navigation = () => {
     return (
         <nav className="main-nav">
             <ul>
-            <li><a href='#'>Cats</a></li>
-            <li><a href='#'>Dogs</a></li>
-            <li><a href='#'>Computers</a></li>
+            <li><a href='http://google.com'>Cats</a></li>
+            <li><a href='http://google.com'>Dogs</a></li>
+            <li><a href='http://google.com'>Computers</a></li>
             </ul>
         </nav>
     );
