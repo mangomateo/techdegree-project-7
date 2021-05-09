@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Photo from './Photo';
+import Cats from './Cats';
 // import NotFound from './NotFound';
 
 class PhotoContainer extends Component {
@@ -15,14 +15,7 @@ class PhotoContainer extends Component {
                 <h2>Results</h2>
                 <ul>
                 {/* PHOTO COMPONENTS GO HERE */}
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
+                <Cats catPics={ this.props.pics.catPics }/>
     
                 {/* IF NO PHOTOS, RETURN THE NOTFOUND COMPONENT */}
                 {/* <NotFound /> */}
