@@ -1,12 +1,13 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
     return (
         <nav className="main-nav">
             <ul>
-            <li><a href='http://google.com'>Cats</a></li>
-            <li><a href='http://google.com'>Dogs</a></li>
-            <li><a href='http://google.com'>Computers</a></li>
+                <li><NavLink to='/cats'>Cats</NavLink></li>
+                <li><NavLink to='/dogs'>Dogs</NavLink></li>
+                <li><NavLink to='/birds'>Birds</NavLink></li>
             </ul>
         </nav>
     );

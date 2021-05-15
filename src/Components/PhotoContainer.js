@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
+// eslint-disable-next-line
 import Photo from './Photo';
-import NotFound from './NotFound';
 
 class PhotoContainer extends Component {
 
@@ -14,18 +13,7 @@ class PhotoContainer extends Component {
             <div className="photo-container">
                 <h2>Results</h2>
                 <ul>
-                {/* PHOTO COMPONENTS GO HERE */}
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
-                <Photo />
-    
-                {/* IF NO PHOTOS, RETURN THE NOTFOUND COMPONENT */}
-                <NotFound />
+                    {/* PHOTO COMPONENTS GO HERE */}
                 </ul>            
             </div>
         );
