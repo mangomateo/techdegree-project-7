@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 
 import SearchForm from './SearchForm';
 import Navigation from './Navigation';
 import NotFound from './NotFound';
-// eslint-disable-next-line
 import apiKey from '../config';
 
 import Cats from './Results/Cats';
@@ -15,7 +15,45 @@ import SearchResults from './Results/SearchResults';
 class App extends Component {
 
   state = {
-    photoData: []
+    catPhotoData: [],
+    dogPhotoData: [],
+    birdPhotoData: []
+  }
+
+  componentDidMount() {
+
+    // Fetch cat pictures
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=cats&per_page=24&page=1&format=json&nojsoncallback=1`)
+      .then(response => {
+        this.setState({
+          catPhotoData: response.data.photos.photo
+        });
+      })
+      .catch(error => {
+        console.log('Error fetching and parsing data', error);
+      });
+
+      // Fetch dog pictures
+      axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=dogs&per_page=24&page=1&format=json&nojsoncallback=1`)
+        .then(response => {
+          this.setState({
+            dogPhotoData: response.data.photos.photo
+          });
+        })
+        .catch(error => {
+          console.log('Error fetching and parsing data', error);
+        });
+
+      // Fetch bird pictures
+      axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=birds&per_page=24&page=1&format=json&nojsoncallback=1`)
+        .then(response => {
+          this.setState({
+            birdPhotoData: response.data.photos.photo
+          });
+        })
+        .catch(error => {
+          console.log('Error fetching and parsing data', error);
+        });
   }
 
   render() {
@@ -25,10 +63,10 @@ class App extends Component {
           <SearchForm />
           <Navigation />
           <Switch>
-            <Route exact path="/" component={ Cats } />
-            <Route path="/cats" component={ Cats } />
-            <Route path="/dogs" component={ Dogs } />
-            <Route path="/birds" component={ Birds } />
+            <Route exact path="/" render={ () => <Cats data={this.state.catPhotoData}/> } />
+            <Route path="/cats" render={ () => <Cats data={this.state.catPhotoData}/> } />
+            <Route path="/dogs" render={ () => <Dogs data={this.state.dogPhotoData}/> } />
+            <Route path="/birds" render={ () => <Birds data={this.state.birdPhotoData}/> } />
             <Route path="/?search=:id" component={ SearchResults } />
             <Route component={ NotFound }/>
           </Switch>
