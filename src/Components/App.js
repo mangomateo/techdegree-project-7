@@ -6,8 +6,6 @@ import Navigation from './Navigation';
 import NotFound from './NotFound';
 // eslint-disable-next-line
 import apiKey from '../config';
-// eslint-disable-next-line
-import PhotoContainer from './PhotoContainer';
 
 import Cats from './Results/Cats';
 import Dogs from './Results/Dogs';
@@ -27,11 +25,11 @@ class App extends Component {
           <SearchForm />
           <Navigation />
           <Switch>
-            <Route exact path="/" render={ () => <Redirect to="/cats" /> } />
+            <Route exact path="/" component={ Cats } />
             <Route path="/cats" component={ Cats } />
             <Route path="/dogs" component={ Dogs } />
             <Route path="/birds" component={ Birds } />
-            <Route path="/search" component={ SearchResults } />
+            <Route path="/?search=:id" component={ SearchResults } />
             <Route component={ NotFound }/>
           </Switch>
         </div>
