@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import SearchForm from './SearchForm';
@@ -7,9 +7,7 @@ import Navigation from './Navigation';
 import NotFound from './NotFound';
 import apiKey from '../config';
 
-import Cats from './Results/Cats';
-import Dogs from './Results/Dogs';
-import Birds from './Results/Birds';
+import PhotoContainer from './PhotoContainer';
 import SearchResults from './Results/SearchResults';
 
 class App extends Component {
@@ -63,10 +61,10 @@ class App extends Component {
           <SearchForm />
           <Navigation />
           <Switch>
-            <Route exact path="/" render={ () => <Cats data={this.state.catPhotoData}/> } />
-            <Route path="/cats" render={ () => <Cats data={this.state.catPhotoData}/> } />
-            <Route path="/dogs" render={ () => <Dogs data={this.state.dogPhotoData}/> } />
-            <Route path="/birds" render={ () => <Birds data={this.state.birdPhotoData}/> } />
+            <Route exact path="/" render={ () => <Redirect to="/cats" />} />
+            <Route path="/cats" render={ () => <PhotoContainer photoData={this.state.catPhotoData}/> } />
+            <Route path="/dogs" render={ () => <PhotoContainer photoData={this.state.dogPhotoData}/> } />
+            <Route path="/birds" render={ () => <PhotoContainer photoData={this.state.birdPhotoData}/> } />
             <Route path="/?search=:id" component={ SearchResults } />
             <Route component={ NotFound }/>
           </Switch>
