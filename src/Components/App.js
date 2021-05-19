@@ -53,15 +53,11 @@ class App extends Component {
         });
   }
 
-  performSearch(query) {
+  // Return and update state of searchPhotoData with user entered query
+  performSearch = (query) => {
     // Fetch search results
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&page=1&format=json&nojsoncallback=1`)
     .then(response => {
-      
-      // TESTING TO SEE IF GET REQUEST SUCCESSFULLY RETURNS DATA
-      console.log(response.data.photos.photo)
-
-      // THIS CURRENTLY DOES NOT UPDATE STATE
       this.setState({ searchPhotoData: response.data.photos.photo });
     })
     .catch(error => {
