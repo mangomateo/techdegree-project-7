@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { useHistory } from 'react-router-dom';
 
 class SearchForm extends Component {
 
@@ -18,9 +19,11 @@ class SearchForm extends Component {
         e.currentTarget.reset();
     }
 
+    
+
     render() {
         return (
-            <form className="search-form" onSubmit={ this.handleSubmit }>
+            <form className="search-form" onSubmit={ this.handleSubmit } >
                 <input type="search" name="search" placeholder="Search" onChange={ this.onSearchChange } required/>
                 <button type="submit" className="search-button">
                 <svg fill="#fff" height="24" viewBox="0 0 23 23" width="24" xmlns="http://www.w3.org/2000/svg">

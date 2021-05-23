@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import SearchForm from './SearchForm';
@@ -11,9 +11,11 @@ import apiKey from '../config';
 class App extends Component {
 
   state = {
+    showPhotoData: [],
     catPhotoData: [],
     dogPhotoData: [],
     birdPhotoData: [],
+    searchQuery: '',
     searchPhotoData: []
   }
 
@@ -58,7 +60,7 @@ class App extends Component {
     // Fetch search results
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&page=1&format=json&nojsoncallback=1`)
     .then(response => {
-      this.setState({ searchPhotoData: response.data.photos.photo });
+      this.setState({ searchPhotoData: response.data.photos.photo, searchQuery: query });
     })
     .catch(error => {
       console.log('Error fetching and parsing data', error);
@@ -72,10 +74,11 @@ class App extends Component {
           <SearchForm onSearch={ this.performSearch }/>
           <Navigation />
           <Switch>
-            <Route exact path="/" render={ () => <PhotoContainer photoData={this.state.catPhotoData} />} />
+            <Route exact path="/" render={ () => <Redirect to="/cats" /> } />
             <Route path="/cats" render={ () => <PhotoContainer photoData={this.state.catPhotoData} /> } />
             <Route path="/dogs" render={ () => <PhotoContainer photoData={this.state.dogPhotoData} /> } />
             <Route path="/birds" render={ () => <PhotoContainer photoData={this.state.birdPhotoData} /> } />
+            <Route path="/search" render={ () => <PhotoContainer photoData={this.state.searchPhotoData} /> } />
             <Route component={ NotFound }/>
           </Switch>
         </div>
