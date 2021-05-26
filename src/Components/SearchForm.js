@@ -7,14 +7,16 @@ class SearchForm extends Component {
         query: ''
     }
 
+    // This method will set the component state to whatever is entered in the search form input field
     onSearchChange = e => {
         this.setState({
             query: e.target.value
         });
     }
 
-    componentDidUpdate() {
-        console.log('The component updated!');
+    handleHistory = () => {
+        let currentLocation = this.props.location.pathname;
+        console.log(`path: ${currentLocation.slice(8)}`);
     }
 
     handleSubmit = e => {
@@ -31,8 +33,6 @@ class SearchForm extends Component {
         this.props.history.push(path);
         e.currentTarget.reset();
     }
-
-    
 
     render() {
         return (
