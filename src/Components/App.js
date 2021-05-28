@@ -10,13 +10,19 @@ import apiKey from '../config';
 
 class App extends Component {
 
+  // Initial application state
   state = {
-    showPhotoData: [],
+
+    // Get request on component mount will populate these three arrays with photo data
     catPhotoData: [],
     dogPhotoData: [],
     birdPhotoData: [],
+
+    // Search related states (will update when user submits a search query)
     searchQuery: '',
     searchPhotoData: [],
+
+    // Boolean state to show/hide loading text between get requests
     isLoading: true
   }
 
@@ -58,10 +64,16 @@ class App extends Component {
   }
 
   performSearch = (query) => {
-    // Fetch search results
+
+    // Set isLoading boolean to true to show Loading... text before results are populated
+    this.setState({ isLoading: true});
+    
+    // Fetch search results, hide Loading test by changing isLoading boolean to false
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&page=1&format=json&nojsoncallback=1`)
     .then(response => {
-      this.setState({ searchPhotoData: response.data.photos.photo, searchQuery: query });
+      this.setState({ searchPhotoData: response.data.photos.photo, 
+                      searchQuery: query,
+                      isLoading: false });
     })
     .catch(error => {
       console.log('Error fetching and parsing data', error);
@@ -75,6 +87,8 @@ class App extends Component {
           <SearchForm onSearch={ this.performSearch } searchData={this.state.searchQuery} />
           <Navigation />
           {
+            // Show Loading text if isLoading === true, 
+            // otherwise show proper <PhotoContainer /> component
             (this.state.isLoading) 
               ? <p>Loading...</p>
               :  <Switch>
@@ -82,7 +96,11 @@ class App extends Component {
                   <Route path="/cats" render={ () => <PhotoContainer photoData={this.state.catPhotoData} /> } />
                   <Route path="/dogs" render={ () => <PhotoContainer photoData={this.state.dogPhotoData} /> } />
                   <Route path="/birds" render={ () => <PhotoContainer photoData={this.state.birdPhotoData} /> } />
-                  <Route path="/search/:query" render={ () => <PhotoContainer photoData={this.state.searchPhotoData} /> } />
+                  <Route path="/search/:query" render={ () => <PhotoContainer 
+                                                                photoData={this.state.searchPhotoData} 
+                                                                searchQuery={this.state.searchQuery} 
+                                                                newSearch={this.performSearch}
+                                                              /> } />
                   <Route component={ NotFound }/>
                 </Switch>
           }
