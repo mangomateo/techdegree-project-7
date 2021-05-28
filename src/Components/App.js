@@ -13,7 +13,10 @@ class App extends Component {
   // Initial application state
   state = {
 
-    // Get request on component mount will populate these three arrays with photo data
+    /** 
+     * Get request on component mount will populate 
+     * these three arrays with photo data
+     **/ 
     catPhotoData: [],
     dogPhotoData: [],
     birdPhotoData: [],
@@ -65,10 +68,17 @@ class App extends Component {
 
   performSearch = (query) => {
 
-    // Set isLoading boolean to true to show Loading... text before results are populated
+    /** 
+     *  Set isLoading boolean to true to show 
+     *  Loading... text before results are populated
+     **/
     this.setState({ isLoading: true});
     
-    // Fetch search results, hide Loading test by changing isLoading boolean to false
+    /** 
+     *  Fetch search results, hide Loading text 
+     *  by changing isLoading boolean to false
+     **/
+    
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&page=1&format=json&nojsoncallback=1`)
     .then(response => {
       this.setState({ searchPhotoData: response.data.photos.photo, 
@@ -87,8 +97,10 @@ class App extends Component {
           <SearchForm onSearch={ this.performSearch } searchData={this.state.searchQuery} />
           <Navigation />
           {
-            // Show Loading text if isLoading === true, 
-            // otherwise show proper <PhotoContainer /> component
+            /**
+            *   Show Loading text if isLoading === true,  
+            *   otherwise show proper <PhotoContainer /> component
+            **/ 
             (this.state.isLoading) 
               ? <p>Loading...</p>
               :  <Switch>

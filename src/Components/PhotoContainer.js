@@ -9,9 +9,11 @@ class PhotoContainer extends Component {
         flavorOfTheWeek: 'orange'
     }
 
-    // This function recieves an array of pictures fetched 
-    // from the API and returns a <Photo /> component for 
-    // each item in the array
+    /**
+    *   This function recieves an array of pictures fetched 
+    *   from the API and returns a <Photo /> component for 
+    *   each item in the array
+    **/
     getPictures() {
         let pictures = this.props.photoData.map( pic => 
             <Photo 
@@ -24,8 +26,11 @@ class PhotoContainer extends Component {
         return pictures;
     }
 
-    // Render the photo components created by this.getPictures() or 
-    // if the array is empty render <NotFound />
+    /** 
+     *  Render the photo components created by this.getPictures() or 
+     *  if the array is empty, render <NotFound />
+     * */
+    
     render() {
         return (
             <div className="photo-container">
